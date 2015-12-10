@@ -1,0 +1,47 @@
+{
+  "name": "biojs-io-munemo",
+  "description": "A model for multilayer networks",
+  "version": "0.0.1",
+  "homepage": "https://github.com/DennisSchwartz/biojs-io-munemo",
+  "author": {
+    "name": "Dennis Schwartz",
+    "email": "schwartz_dennis@web.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DennisSchwartz/biojs-io-munemo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DennisSchwartz/biojs-io-munemo/issues"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "mkdirp build && browserify -r ./:biojs-io-munemo -o build/munemo.js",
+    "build-browser": "npm run build",
+    "prepublish": "npm run build",
+    "lint": "jshint -c .jshintrc lib --verbose",
+    "start"         : "mochify --watch",
+    "phantom"       : "mochify",
+    "wd"            : "mochify --wd",
+    "cover"         : "mochify --cover",
+    "test"          : "npm run phantom && npm run wd && npm run cover"
+  },
+  "dependencies": {
+    "babyparse": "^0.4.3"
+  },
+  "devDependencies": {
+    "browserify": "6.x",
+    "chai": "1.x",
+    "jshint": "^2.5.10",
+    "mkdirp": "^0.5.0",
+    "mocha": "1.x",
+    "mochify": "^2.14.2"
+  },
+  "keywords": [
+    "biojs",
+    "multilayer",
+    "networks",
+    "biojs"
+  ]
+}
