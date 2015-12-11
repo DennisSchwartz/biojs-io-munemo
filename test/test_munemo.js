@@ -21,7 +21,7 @@ var assert = chai.assert;
 chai.expect();
 chai.should();
 
-// requires your main app (specified in index.js)
+// requires your main app (specified in index-old.js)
 var munemo = require('../');
 
 describe('biojs-io-munemo module', function(){
