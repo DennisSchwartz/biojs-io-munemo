@@ -7,3 +7,4 @@ coverage/lcov.info
 .coveralls.yml
 examples-out
 *.csv
+biojs-io-munemo-0.0.1.tgz
