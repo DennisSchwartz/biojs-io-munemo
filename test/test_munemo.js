@@ -63,14 +63,15 @@ describe('speed comparison mplexnet - munemo', function () {
         // get the File
         //fileMunemo = fs.readFileSync('test/5000-munemo.csv');
         //time.tic();
-        file = fs.readFileSync('test/arabidopsis1000.csv', 'utf-8');
+        file = fs.readFileSync('test/signalink1.csv', 'utf-8');
         console.log("Read File");
+        console.log(file);
         //time.toc();
     });
     it ('should compare time', function () {
         // Create the network with mplexnet
         time.tic();
-        var mplexnet = new Mplexnet({ options: { inputFormat: 'csv'} , data: file });
+        //var mplexnet = new Mplexnet({ options: { inputFormat: 'csv'} , data: file });
         console.log('Mplexnet: ');
         time.toc();
         time.tic();
@@ -79,7 +80,7 @@ describe('speed comparison mplexnet - munemo', function () {
         console.log('Number of elements: ' + Object.keys(elements).length);
         time.toc();
     });
-    it('give me a demo dataset', function () {
+    /*it('give me a demo dataset', function () {
         var demo = munemo( { inFormat: 'csv', data: 'source, layer, target, layer\n\
 A, 1, B, 1\n\
 A, 1, C, 1\n\
@@ -118,5 +119,5 @@ D, 1, D, 2\n\
 E, 1, E, 2\n\
 F, 1, F, 2'});
         console.log(JSON.stringify(demo));
-    })
+    })*/
 });
