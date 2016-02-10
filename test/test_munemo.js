@@ -79,6 +79,7 @@ describe('speed comparison mplexnet - munemo', function () {
         console.log('Munemo: ');
         console.log('Number of elements: ' + Object.keys(elements).length);
         time.toc();
+        console.log(elements.func.createNode({ id: "test", label: "tras"}));
     });
     /*it('give me a demo dataset', function () {
         var demo = munemo( { inFormat: 'csv', data: 'source, layer, target, layer\n\

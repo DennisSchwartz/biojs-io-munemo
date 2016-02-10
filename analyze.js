@@ -12,7 +12,7 @@ var file = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Core
 
 var data = parse(file, true);
 
-var elements = munemo( { inFormat: 'csv', data: file } );
+var elements = munemo( { inFormat: 'csv', data: file, opts: { paths: true } } );
 
 //console.log(elements.edges);
 
@@ -59,9 +59,8 @@ for ( i=0; i < paths.length; i++ ) {
 // count cross-talks
 
 var crossTalks = [];
-console.log(edges[0]);
 for ( i=0; i < edges.length; i++ ) {
-    var e = edges[i];
+    var currentEdge = edges[i];
     var cc = {};
     src = edges[i].data.srcPath.split(',');
     trg = edges[i].data.trgPath.split(',');
@@ -73,8 +72,8 @@ for ( i=0; i < edges.length; i++ ) {
             if ( src[sCount] !== trg[tCount]) {
                 cc["src"] = src[sCount];
                 cc["trg"] = trg[tCount];
-                cc["lvl"] = elements.elements[e.data.source].data.layer;
-                cc["data"] = e;
+                cc["lvl"] = elements.elements[currentEdge.data.source].data.layer;
+                cc["data"] = currentEdge;
                 crossTalks.push(cc);
             }
         }
@@ -88,10 +87,9 @@ for ( i=0; i < edges.length; i++ ) {
     //lvl.push()
 }
 
-console.log(crossTalks);
+//console.log(crossTalks);
 
-
-console.log(paths); // <-- Nodes
+//console.log(paths); // <-- Nodes
 
 /*
     1. Go through cross-talks
@@ -101,11 +99,80 @@ console.log(paths); // <-- Nodes
     3. create vis for that network.
  */
 
-
+cc = munemo( { inFormat: 'csv', data: "" } );
 
 for ( i=0; i < crossTalks.length; i++ ) {
+    var ccId = 'e' + crossTalks[i].src + crossTalks[i].lvl + crossTalks[i].trg + crossTalks[i].lvl;
+    if ( cc.elements[ccId] === undefined ) {
+        //var src = cc.func.createNode(
 
+        // check if layer exists or create
+        if ( cc.elements['l' + crossTalks[i].lvl] === undefined ) {
+            console.log("Create new layer!");
+            var l = cc.func.createLayer( 'l' + crossTalks[i].lvl );
+            cc.layers.push( l );
+            cc.elements[ 'l' + crossTalks[i].lvl ] = l;
+        }
+
+        // check if both nodes exist
+        if ( cc.elements['n' + crossTalks[i].src] === undefined ) {
+            var s = cc.func.createNode({
+                id: 'n' + crossTalks[i].src
+            });
+            cc.elements['n' + crossTalks[i].src] = s;
+            cc.nodes.push(s);
+        }
+
+        if ( cc.elements['n' + crossTalks[i].trg] === undefined ) {
+            var t = cc.func.createNode({
+                id: 'n' + crossTalks[i].trg
+            });
+            cc.elements['n' + crossTalks[i].trg] = t;
+            cc.nodes.push(t);
+        }
+
+        // check if nodelayers exist for src and trg
+        if ( cc.elements[ 'nl' + crossTalks[i].src + crossTalks[i].lvl ] === undefined ) {
+            var nl1 = cc.func.createNodelayer({
+                node: 'n' + crossTalks[i].src,
+                layer: 'l' + crossTalks[i].lvl
+            });
+            cc.elements['nl' + crossTalks[i].src + crossTalks[i].lvl] = nl1;
+            cc.nodelayers.push(nl1);
+        }
+
+        if ( cc.elements[ 'nl' + crossTalks[i].trg + crossTalks[i].lvl ] === undefined ) {
+            var nl2 = cc.func.createNodelayer({
+                node: 'n' + crossTalks[i].trg,
+                layer: 'l' + crossTalks[i].lvl
+            });
+            cc.elements['nl' + crossTalks[i].trg + crossTalks[i].lvl] = nl2;
+            cc.nodelayers.push(nl2);
+        }
+        
+        // create missing edge
+        var e = cc.func.createEdge({
+            source: 'nl' + crossTalks[i].src + crossTalks[i].lvl,
+            target: 'nl' + crossTalks[i].trg + crossTalks[i].lvl,
+            weight: 1
+        });
+        cc.elements['e' + e.data.source.substring(2) + e.data.target.substring(2)] = e;
+        cc.edges.push(e);
+
+    } else {
+        // Get edge and increase weight by 1
+        cc.elements[ccId].data.weight = cc.elements[ccId].data.weight + 1;
+        for ( var k = 0; k < cc.edges.length; k++) {
+            var edge = cc.edges[k];
+            if ( edge.data.id = ccId ) {
+                edge.data.weight = edge.data.weight + 1;
+                break;
+            }
+        }
+    }
 }
+
+console.log(JSON.stringify(cc));
 
 //for ( i=0; i < edges.length; i++ ) {
 //    var row = edges[i];
