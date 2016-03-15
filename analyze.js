@@ -172,7 +172,7 @@ for ( i=0; i < crossTalks.length; i++ ) {
     }
 }
 
-console.log(JSON.stringify(cc));
+//console.log(JSON.stringify(cc));
 
 //for ( i=0; i < edges.length; i++ ) {
 //    var row = edges[i];
