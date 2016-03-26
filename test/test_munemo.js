@@ -80,6 +80,11 @@ describe('speed comparison mplexnet - munemo', function () {
         console.log('Number of elements: ' + Object.keys(elements).length);
         time.toc();
         console.log(elements.func.createNode({ id: "test", label: "tras"}));
+        console.log(elements);
+    });
+    it ('should provide functions to return sum of edge weights', function () {
+        var elements = munemo( { inFormat: 'csv', data: file } );
+        console.log(elements.func.getWeights());
     });
     /*it('give me a demo dataset', function () {
         var demo = munemo( { inFormat: 'csv', data: 'source, layer, target, layer\n\
