@@ -58,6 +58,8 @@ describe('biojs-io-munemo module', function(){
 
 describe('speed comparison mplexnet - munemo', function () {
     var file;
+    var file2;
+    var file3;
     var fileMunemo;
     before(function () {
         // get the File
@@ -65,6 +67,7 @@ describe('speed comparison mplexnet - munemo', function () {
         //time.tic();
         file = fs.readFileSync('test/signalink1.csv', 'utf-8');
         file2 = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Elegans-Notch-TGF-WNT-No-TF.csv', 'utf-8');
+        file3 = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Human-Notch-TGF-WNT-No-TF.csv', 'utf-8');
         console.log("Read File");
         console.log(file);
         //time.toc();
@@ -84,7 +87,7 @@ describe('speed comparison mplexnet - munemo', function () {
         console.log(elements);
     });
     it ('should provide functions to return sum of edge weights', function () {
-        var elements = munemo( { inFormat: 'csv', data: file2 } );
+        var elements = munemo( { inFormat: 'csv', data: file3 } );
         //console.log(elements.elements);
 
         //console.log(elements.func.getWeights());
