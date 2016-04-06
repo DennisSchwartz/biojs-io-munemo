@@ -59,7 +59,7 @@ describe('biojs-io-munemo module', function(){
 describe('speed comparison mplexnet - munemo', function () {
     var file;
     var file2;
-    var file3;
+    var file3, file4;
     var fileMunemo;
     before(function () {
         // get the File
@@ -68,6 +68,7 @@ describe('speed comparison mplexnet - munemo', function () {
         file = fs.readFileSync('test/signalink1.csv', 'utf-8');
         file2 = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Elegans-Notch-TGF-WNT-No-TF.csv', 'utf-8');
         file3 = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Human-Notch-TGF-WNT-No-TF.csv', 'utf-8');
+        file4 = fs.readFileSync('/Users/ds/Documents/Code/Thesis/BioJS/Data/slk2/Human-AllPW-ExOnly-NoTF.csv', 'utf-8');
         console.log("Read File");
         console.log(file);
         //time.toc();
@@ -91,6 +92,12 @@ describe('speed comparison mplexnet - munemo', function () {
         //console.log(elements.elements);
 
         //console.log(elements.func.getWeights());
+    });
+    it ('should work faster with sparse matrices', function () {
+        var network = munemo( { inFormat: 'csv', data: file4 } );
+        network.func.createMultiplexAdjacencyArray();
+        network.func.calcVertexDegrees();
+        chai.assert(true);
     });
     /*it('give me a demo dataset', function () {
         var demo = munemo( { inFormat: 'csv', data: 'source, layer, target, layer\n\
