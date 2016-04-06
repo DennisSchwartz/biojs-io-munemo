@@ -88,7 +88,7 @@ describe('speed comparison mplexnet - munemo', function () {
         console.log(elements);
     });
     it ('should provide functions to return sum of edge weights', function () {
-        var elements = munemo( { inFormat: 'csv', data: file3 } );
+        var elements = munemo( { inFormat: 'csv', data: file } );
         //console.log(elements.elements);
 
         //console.log(elements.func.getWeights());
@@ -97,6 +97,7 @@ describe('speed comparison mplexnet - munemo', function () {
         var network = munemo( { inFormat: 'csv', data: file2 } );
         network.func.createMultiplexAdjacencyArray();
         network.func.calcVertexDegrees();
+        console.log(network.nodes[0]);
         chai.assert(true);
     });
     /*it('give me a demo dataset', function () {
