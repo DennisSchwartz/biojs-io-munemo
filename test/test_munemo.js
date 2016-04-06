@@ -94,7 +94,7 @@ describe('speed comparison mplexnet - munemo', function () {
         //console.log(elements.func.getWeights());
     });
     it ('should work faster with sparse matrices', function () {
-        var network = munemo( { inFormat: 'csv', data: file4 } );
+        var network = munemo( { inFormat: 'csv', data: file2 } );
         network.func.createMultiplexAdjacencyArray();
         network.func.calcVertexDegrees();
         chai.assert(true);
